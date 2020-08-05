@@ -1,26 +1,25 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
+  mode: 'development',
+
+  entry: {
+    app: './src/index.js',
+    print: './src/print.js'
   },
-  module: {
-    rules: [
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
-      },
-      {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: [
-          'file-loader'
-        ]
-      }
-    ]
+
+  plugins: [
+    // 中文文档还在使用旧版本的方式
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      title: 'Output Management'
+    })
+  ],
+
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist')
   }
 };
