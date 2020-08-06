@@ -6,8 +6,14 @@ module.exports = {
   mode: 'development',
 
   entry: {
-    app: './src/index.js'
+    index: './src/index.js',
+    another: './src/another-module.js',
+    // 防止重复代码
+    // index: { import: './src/index.js', dependOn: 'shared' },
+    // another: { import: './src/another-module.js', dependOn: 'shared' },
+    // shared: 'lodash',
   },
+
   // 该配置只能用在开发环境
   devtool: 'inline-source-map',
 
@@ -29,5 +35,11 @@ module.exports = {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/'
+  },
+
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    }
   }
 };
